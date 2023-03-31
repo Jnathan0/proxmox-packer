@@ -1,0 +1,36 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    allow-pw: true
+    disable_root: true
+    ssh_quiet_keygen: true
+    allow_public_ssh_keys: true
+  packages:
+    - qemu-guest-agent
+    - sudo
+  storage:
+    layout:
+      name: direct
+    swap:
+      size: 0
+  write_files:  # disable IPV6 in sysctl conf if network doesn't support it/you dont want it
+    - path: /etc/sysctl.d/10-disable-ipv6.conf
+      permissions: 0644
+      owner: root
+      content: |
+        net.ipv6.conf.ens18.disable_ipv6 = 1
+  user-data:
+    package_upgrade: false
+    timezone: US/Los_Angeles
+    users:
+      - name: user
+        groups: [adm, docker, sudo]
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+        ssh_authorized_keys: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoAGRSxS0+UL5RfV1STky08K9PRF7P401taT4aAK86T18kN3Wp5rfNXDj4zoflOQadHYSZyO49luBP+MJCgNtqRdINoc9lgy8eepAFhyIqDc9vuX7F8h97e3J7l3DqbyLdSCxN/Ht7DvPdq1iMT3qjmys6ZqrN6D2IMCVkbk0c6IxKafmeJb2m0aSu/uzmVNBwt2sxuM6qfiFJcweVGXkpq6dPh0hK5EFemT2eHEBV8Q4gndAVBdh08Ws3HTIj4bYlZvQ6PW/MXnOKt58ttjj2ZKtBsXq+WerxFxjI9SFzVSxts1/s+nFYCKhLfQ+NJa2XYTggFEdMBN+z4Rvln7w9 root@proxmox
