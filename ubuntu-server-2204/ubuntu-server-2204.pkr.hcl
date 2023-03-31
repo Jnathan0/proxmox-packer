@@ -29,17 +29,17 @@ source "proxmox" "ubuntu-server-2204" {
     
     # VM General Settings
     node = "proxmox"
-    vm_id = "900"
+    vm_id = "1100"
     vm_name = "ubuntu-server-2204"
     template_description = "Ubuntu Server 22.04 Image"
 
     # VM OS Settings
     # (Option 1) Local ISO File
-    iso_file = "local:iso/ubuntu-22.10-live-server-amd64.iso"
+    iso_file = "local:iso/ubuntu-22.04.2-live-server-amd64.iso"
     # - or -
-    # (Option 2) Download ISO
-    # iso_url = "https://releases.ubuntu.com/22.04/ubuntu-22.04.2-live-server-amd64.iso"
-    # iso_checksum = "5e38b55d57d94ff029719342357325ed3bda38fa80054f9330dc789cd2d43931"
+    # (Option 2) Download ISO, this requires pve 7.0+
+    # iso_url = "https://mirror.math.princeton.edu/pub/ubuntu-iso/jammy/ubuntu-22.04.2-live-server-amd64.iso"
+    # iso_checksum = "sha256:5e38b55d57d94ff029719342357325ed3bda38fa80054f9330dc789cd2d43931"
     iso_storage_pool = "local"
     unmount_iso = false
 
